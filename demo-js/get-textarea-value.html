@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="content" class="content">
+		<textarea>回复@影响力：</textarea>
+		<button>get value</button>
+	</div>
+	<script type="text/javascript">
+		var contentDom = document.getElementById('content'),
+		txtDom = contentDom.getElementsByTagName('textarea')[0],
+		buttonDom = contentDom.getElementsByTagName('button')[0];
+
+		txtDom.addEventListener('keydown', function(e) {
+			// console.log(e.target.defaultValue);
+			// console.log(e.target.value);
+			// console.log(e.which)
+			if (e.which == 8) {
+				if (e.target.defaultValue === e.target.value) {
+					console.log('不能删除提示！');
+					e.preventDefault();
+				}
+			}
+		})
+		buttonDom.addEventListener('click', function(e) {
+			var reg = new RegExp('^' + txtDom.defaultValue);
+			var txtVal = txtDom.value.replace(reg, '');
+			console.log(txtVal);
+		})
+	</script>
+</body>
+</html>
