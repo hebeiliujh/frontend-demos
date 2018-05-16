@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../layui-v2.3.0-rc1/layui/css/layui.css">
+	<style type="text/css">
+		.warpper {
+			width: 1170px;
+			margin: 30px auto;
+		}
+		.mb20 {
+			margin-bottom: 20px;
+		}
+		.disnone {
+			display: none;
+		}
+		#view {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 240px;
+			border: 1px solid #eee;
+			padding: 20px;
+			background-color: #FFF;
+		}
+		.warpper a {
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<ul class="warpper">
+		<li class="mb20">
+			<a href="javascript:;">
+				<img src="https://pic2.zhimg.com/v2-77ee1b2a446ff3427e82a4cfa93b3d0d_m.jpg">
+				<p>中工我人001</p>
+			</a>
+		</li>
+		<li class="mb20">
+			<a href="javascript:;">
+				<img src="https://pic2.zhimg.com/v2-77ee1b2a446ff3427e82a4cfa93b3d0d_m.jpg">
+				<p>中工我人002</p>
+			</a>
+		</li>
+		<li class="mb20">
+			<a href="javascript:;">
+				<img src="https://pic2.zhimg.com/v2-77ee1b2a446ff3427e82a4cfa93b3d0d_m.jpg">
+				<p>中工我人003</p>
+			</a>
+		</li>
+		<li class="mb20">
+			<a href="javascript:;">
+				<img src="https://pic2.zhimg.com/v2-77ee1b2a446ff3427e82a4cfa93b3d0d_m.jpg">
+				<p>中工我人004</p>
+			</a>
+		</li>
+	</ul>
+	<div id="view" class="disnone"></div>
+	<script id="demo" type="text/html">
+	  <h3>{{ d.title }}</h3>
+	  <ul>
+	  {{#  layui.each(d.list, function(index, item){ }}
+	    <li>
+	      <span>{{ item.modname }}</span>
+	      <span>{{ item.alias }}：</span>
+	      <span>{{ item.site || '' }}</span>
+	    </li>
+	  {{#  }); }}
+	  {{#  if(d.list.length === 0){ }}
+	    无数据
+	  {{#  } }} 
+	  </ul>
+	</script>
+	<script src="../layui-v2.3.0-rc1/layui/layui.js"></script>
+	<script>
+		//一般直接写在一个js文件中
+		layui.use(['layer', 'laytpl', 'hoverplugin'], function(){
+		  var layer = layui.layer,
+		  laytpl = layui.laytpl,
+		  $ = layui.jquery;
+		  // layer.msg('Hello World');
+		  
+		  var data = { //数据
+			  "title":"Layui常用模块"
+			  ,"list":[{"modname":"弹层","alias":"layer","site":"layer.layui.com"},{"modname":"表单","alias":"form"}]
+			}
+			var getTpl = demo.innerHTML
+			,view = document.getElementById('view');
+			laytpl(getTpl).render(data, function(html){
+			  view.innerHTML = html;
+			});
+
+			var hoverplugin = layui.hoverplugin;
+		  
+		  hoverplugin.hello('World！！！！！!'); //弹出 Hello World!
+		  
+		  // 
+		  $('.warpper a img').on('mouseenter', function(e){
+		  	// console.log($(this).offset().top, $(this).offset().left);
+		    $('#view').css({
+		    	top: $(this).offset().top + 'px',
+		    	left: $(this).offset().left + 'px'
+		    }).removeClass('disnone');
+		  });
+		  $('#view').on('mouseleave', function(e){
+		  	$(this).addClass('disnone')
+		  });
+		  
+		});
+	</script> 
+</body>
+</html>
